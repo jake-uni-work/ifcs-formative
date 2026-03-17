@@ -26,7 +26,7 @@ def index_to_letter(index: int) -> str:
 def letter_to_index(letter: str) -> int:
     """Convert ASCII character a-z or A-Z to a list index"""
     if len(letter) != 1:
-        raise ValueError(f"Letter must be a single character")
+        raise ValueError("Letter must be a single character")
     asc = ord(letter)
     # Handle lowercase letters
     if 97 <= asc <= 122:
@@ -44,11 +44,11 @@ def ask_question(question: QuizQuestion) -> None:
         print(f"\t{index_to_letter(index)}: {opt.option}")   
     
     while True:
-        answer = input(f"Your answer: ")
+        answer = input("Your answer: ")
         try:
             index = letter_to_index(answer)
         except ValueError:
-            print(f"That is not a valid answer, please try again!")
+            print("That is not a valid answer, please try again!")
             continue
         
         if index >= len(question.options):
@@ -58,10 +58,10 @@ def ask_question(question: QuizQuestion) -> None:
         option = question.options[index]
         
         if option.correct:
-            print(f"That is correct!")
+            print("That is correct!")
             break
         else:
-            print(f"Not quite right, try again!")
+            print("Not quite right, try again!")
         
                    
     
