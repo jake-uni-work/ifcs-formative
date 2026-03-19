@@ -1,0 +1,103 @@
+[
+    {
+        "question": "Who developed the Python Programming Language?",
+        "options": [
+            {
+                "option": "Wick van Rossum",
+                "correct": false
+            },
+            {
+                "option": "Rasmus Lerdorf",
+                "correct": false
+            },
+            {
+                "option": "Gudio van Rossum",
+                "correct": true
+            },
+            {
+                "option": "Niene Stom",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "question": "Which type of programming does Python support?",
+        "options": [
+            {
+                "option": "Object-oriented Programming",
+                "correct": false
+            },
+            {
+                "option": "Structured Programming",
+                "correct": false
+            },
+            {
+                "option": "Functional Programming",
+                "correct": false
+            },
+            {
+                "option": "All of the above",
+                "correct": true
+            }
+        ]
+    },
+    {
+        "question": "Is Python case sensitive when dealing with identifiers?",
+        "options": [
+            {
+                "option": "Yes",
+                "correct": true
+            },
+            {
+                "option": "No",
+                "correct": false
+            },
+            {
+                "option": "Machine dependent",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "question": "Which of the following is the correct extension of the Python file?",
+        "options": [
+            {
+                "option": ".python",
+                "correct": false
+            },
+            {
+                "option": ".pl",
+                "correct": false
+            },
+            {
+                "option": ".py",
+                "correct": true
+            },
+            {
+                "option": ".p",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "question": "Which of the following is used to define a block of code in Python language?",
+        "options": [
+            {
+                "option": "Indentation",
+                "correct": true
+            },
+            {
+                "option": "Key",
+                "correct": false
+            },
+            {
+                "option": "Brackets",
+                "correct": false
+            },
+            {
+                "option": "All of the above",
+                "correct": false
+            }
+        ]
+    }
+]
