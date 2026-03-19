@@ -31,8 +31,101 @@ python main.py test_questions.json
     1. If the question is set to allow repeated attempts, you will be allowed to choose another option. This will continue until you choose the correct answer
     2. Otherwise, the correct answer(s) will be displayed and the next question will be asked.
 
-### Example quiz
-TODO
+### Example quiz flow
+```
+Question: Who developed the Python Programming Language?
+        a: Wick van Rossum
+        b: Rasmus Lerdorf
+        c: Gudio van Rossum
+        d: Niene Stom
+Your answer: a
+That is not correct. The correct answer was:
+        c: Gudio van Rossum
+Question: Which type of programming does Python support?
+        a: Object-oriented Programming
+        b: Structured Programming
+        c: Functional Programming
+        d: All of the above
+Your answer: d
+That is correct!
+Question: Is Python case sensitive when dealing with identifiers?
+        a: Yes
+        b: No
+        c: Machine dependent
+Your answer: a
+That is correct!
+Question: Which of the following is the correct extension of the Python file?
+        a: .python
+        b: .pl
+        c: .py
+        d: .p
+Your answer: c
+That is correct!
+Question: Which of the following is used to define a block of code in Python language?
+        a: Indentation
+        b: Key
+        c: Brackets
+        d: All of the above
+Your answer: a
+That is correct!
+```
 
 ## Technical Documentation
-TODO
+### Question format
+This program uses [JSON](https://www.json.org/json-en.html) to store the question data.
+
+An example question can be seen below:
+```json
+{
+    "question": "An example question", // The question to ask
+    "ask_until_correct": false, // Whether to ask the question multiple times. This is optional and defaults to false
+    "options": [ // A list of options
+        {
+            "option": "An example option", // The option text to display
+            "correct": false // Whether the option is correct or not. Multiple options can be correct per question. This is optional and defaults to false
+        },        
+        {
+            "option": "Another example option",
+            "correct": true
+        },
+
+    ]
+}
+```
+
+A `questions.json` file contains one or more questions in a list, an example can be seen below:
+
+```json
+[
+    {
+        "question": "An example question", // The question to ask
+        "ask_until_correct": false, // Whether to ask the question multiple times. This is optional and defaults to false
+        "options": [ // A list of options
+            {
+                "option": "An example option", // The option text to display
+                "correct": false // Whether the option is correct or not. Multiple options can be correct per question. This is optional and defaults to false
+            },        
+            {
+                "option": "Another example option",
+                "correct": true
+            },
+
+        ]
+    },    
+    {
+        "question": "Another example question", // The question to ask
+        "ask_until_correct": false, // Whether to ask the question multiple times. This is optional and defaults to false
+        "options": [ // A list of options
+            {
+                "option": "An example option for another question", // The option text to display
+                "correct": false // Whether the option is correct or not. Multiple options can be correct per question. This is optional and defaults to false
+            },        
+            {
+                "option": "Another example option for another question",
+                "correct": true
+            },
+
+        ]
+    }
+
+]
