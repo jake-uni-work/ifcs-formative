@@ -1,6 +1,7 @@
 [
     {
         "question": "Test question",
+        "ask_until_correct": true,
         "options": [
             {
                 "option": "Test answer #1"
@@ -11,6 +12,22 @@
             },
             {
                 "option": "Test answer #3"
+            }
+        ]
+    },
+    {
+        "question": "Test question 2",
+        "options": [
+            {
+                "option": "Test answer #1"
+            },
+            {
+                "option": "Test answer #2",
+                "correct": true
+            },
+            {
+                "option": "Test answer #3",
+                "correct": true
             }
         ]
     }

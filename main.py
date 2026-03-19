@@ -14,6 +14,11 @@ class Option:
 class QuizQuestion:
     question: str
     options: list[Option]
+    ask_until_correct: bool
+    
+    @property
+    def correct_options(self) -> list[tuple[int, Option]]:
+        return [(index, option) for index, option in enumerate(self.options) if option.correct]
 
 
 def index_to_letter(index: int) -> str:
@@ -38,19 +43,25 @@ def letter_to_index(letter: str) -> int:
 
 
 def ask_question(question: QuizQuestion) -> None:
-    """Asks a question to the user until they pick the correct answer"""
-    print(f"Question:\n{question.question}")
+    """Asks a question to the user. By default this will ask until they get it right, set ask_until_correct to True to only ask once."""
+    
+    # Print the question text and the available options
+    print(f"Question: {question.question}")
     for index, opt in enumerate(question.options):
+        # We use \t to indent the options
         print(f"\t{index_to_letter(index)}: {opt.option}")   
     
     while True:
+        # Get the answer from the user
         answer = input("Your answer: ")
         try:
+            # Attempt to parse the letter to a list index. letter_to_index will fail if the provided answer is not a letter, so we catch the exception here rather than parsing twice.
             index = letter_to_index(answer)
         except ValueError:
             print("That is not a valid answer, please try again!")
             continue
         
+        # Check if the parsed index is a valid option
         if index >= len(question.options):
             print(f"{answer} is not an available answer for this question, please try again!")
             continue
@@ -58,13 +69,19 @@ def ask_question(question: QuizQuestion) -> None:
         option = question.options[index]
         
         if option.correct:
+            # If the option is correct, break out of the loop
             print("That is correct!")
             break
-        else:
+        elif question.ask_until_correct:
+            # The answer is wrong and this question wants us to keep asking until they get it right
             print("Not quite right, try again!")
-        
-                   
-    
+        else:
+            # The answer is wrong and the question only allows one attempt, so we print the correct answers and exit the loop.
+            correct_options = question.correct_options
+            correct_options_formatted = "\n".join([f"\t{index_to_letter(correct_index)}: {correct_option.option}" for correct_index, correct_option in correct_options])
+            answer_text = "answer was" if len(correct_options) == 1 else "answers were"
+            print(f"That is not correct. The correct {answer_text}:\n{correct_options_formatted}")
+            break
 
 
 def load_questions(file_name: str) -> list[QuizQuestion]:
@@ -81,11 +98,15 @@ def load_questions(file_name: str) -> list[QuizQuestion]:
             if "question" not in question_data:
                 raise ValueError(f"Invalid question {question_index} in {question_data}: missing question")
             question = question_data["question"]
+            
+            # This is an optional property which will set whether to keep asking the question until the answer is correct. If it is missing, assume it is False
+            ask_until_correct: bool = question_data.get("ask_until_correct", False)
 
             options: list[Option] = []
             # Check whether the question has options
             if "options" not in question_data:
                 raise ValueError(f"Invalid question {question_index} in {question_data}: missing options")
+            
 
             for option_index, option_data in enumerate(question_data["options"]):
                 # Check whether the option has an option text.
@@ -93,13 +114,13 @@ def load_questions(file_name: str) -> list[QuizQuestion]:
                     raise ValueError(
                         f"Invalid option {option_index} for question {question_index}: missing option text")
 
-                option = option_data["option"]
+                option: str = option_data["option"]
                 # Get whether the option is correct. "correct" is not required on all options, so if it is missing from the option, assume it is False
-                option_correct = option_data.get("correct", False)
+                option_correct: bool = option_data.get("correct", False)
 
                 options.append(Option(option=option, correct=option_correct))
                 
-            questions.append(QuizQuestion(question, options))
+            questions.append(QuizQuestion(question, options, ask_until_correct))
     return questions
 
 
