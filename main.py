@@ -21,6 +21,7 @@ class QuizQuestion:
     
     @property
     def correct_options(self) -> list[tuple[int, Option]]:
+        """Return a list of just the correct options with their original indexes."""
         return [(index, option) for index, option in enumerate(self.options) if option.correct]
 
 
