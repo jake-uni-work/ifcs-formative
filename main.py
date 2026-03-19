@@ -1,7 +1,10 @@
 from dataclasses import dataclass
 import os  # Import OS library for handling question files
 import json  # Import JSON library for parsing question data
+import sys # Import sys library to get command line arguments
 
+
+DEFAULT_QUESTION_FILE_NAME = "questions.json"
 
 # Create two dataclasses for easier data management
 @dataclass
@@ -88,7 +91,7 @@ def load_questions(file_name: str) -> list[QuizQuestion]:
     """Load questions from a supplied JSON file"""
     # Check if file exists
     if not os.path.isfile(file_name):
-        raise ValueError(f"File {file_name} does not exist.")
+        raise ValueError(f"File {file_name} does not exist. To specify a different file, run: python main.py [question file name]")
     questions: list[QuizQuestion] = []
     with open(file_name, 'r') as fp:
         # Load the JSON data from the questions file
@@ -123,10 +126,18 @@ def load_questions(file_name: str) -> list[QuizQuestion]:
             questions.append(QuizQuestion(question, options, ask_until_correct))
     return questions
 
-
+# Don't run main code if imported
 if __name__ == "__main__":
-    # TODO: load from file specified on CLI (or default to questions.json if not found)
-    questions = load_questions("test_questions.json")
+    # Check if the user has specified a specific question file
+    if len(sys.argv) > 1:
+        # If they have, use it
+        question_file_name = sys.argv[1]
+    else:
+        # If not, we pick a default
+        question_file_name = DEFAULT_QUESTION_FILE_NAME
+    
+    # Load the questions
+    questions = load_questions(question_file_name)
     # Ask the questions
     for question in questions:
         ask_question(question)
