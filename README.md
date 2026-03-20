@@ -226,7 +226,7 @@ def load_questions(file_name: str) -> list[QuizQuestion]:
 ```
 
 ### Utilities
-Question options are stored internally as list indexes, but we present them to the user as lettered options. To convert between the two, we use the following utilitiy functions (which convert ASCII codepoints to a list index and vice-versa)
+Question options are stored internally as list indexes, but we present them to the user as lettered options. To convert between the two, we use the following utility functions (which convert ASCII codepoints to a list index and vice-versa)
 
 ```py
 def index_to_letter(index: int) -> str:
