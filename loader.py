@@ -13,9 +13,9 @@ def load_questions(file_name: str) -> list[QuizQuestion]:
         # Load the JSON data from the questions file
         data = json.load(fp)
         
-        # We expect the JSON file to contain an array of questions. If the root is not an array, raise an error
+        # We expect the JSON file to contain an list of questions. If the root is not an list, raise an error
         if not isinstance(data, list):
-            raise ValueError(f"File {file_name} is invalid, expected array, found {type(data)!r}")
+            raise ValueError(f"File {file_name} is invalid, expected list, found {type(data)!r}")
         
         # Iterate through the questions
         for question_index, question_data in enumerate(data):
